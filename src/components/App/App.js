@@ -6,7 +6,7 @@ import AddProject from "../AddProject/AddProject";
 import Nav from "../Nav/Nav";
 import "./App.css";
 import DisplayPage from "../DisplayPage/DisplayPage";
-
+import NotFound from "../NotFound/NotFound";
 function App() {
   return (
     <div className="App">
@@ -17,6 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/addproject" element={<AddProject />} />
           <Route path="/department" element={<DepartmentPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
