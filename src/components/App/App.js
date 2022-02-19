@@ -3,12 +3,14 @@ import { BrowserRouter, Link, Route, Routes, Navigate } from "react-router-dom";
 import DepartmentPage from "../DepartmentPage/DepartmentPage";
 import LoginPage from "../LoginPage/LoginPage";
 import AddProject from "../AddProject/AddProject";
+import Nav from "../Nav/Nav";
 import "./App.css";
 import DisplayPage from "../DisplayPage/DisplayPage";
 
 function App() {
   return (
     <div className="App">
+    <Nav />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<DisplayPage />} />
