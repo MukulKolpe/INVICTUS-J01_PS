@@ -1,8 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Container,Nav,NavDropdown,Form,FormControl,Button } from "react-bootstrap";
 
-const nav = () => {
+const Customnav = ({getQuery}) => {
+  const[text,setText] = useState("");
     return(
         <Navbar bg="dark" variant="dark" expand="lg">
      <Container fluid>
@@ -15,8 +17,8 @@ const nav = () => {
         navbarScroll
       >
         <NavDropdown style={{padding: '0 0 0 0.8rem '}} title="Department" id="navbarScrollingDropdown">
-          <NavDropdown.Item >C.S.</NavDropdown.Item>
-          <NavDropdown.Item>IT</NavDropdown.Item>
+          <NavDropdown.Item onClick={(event) => {setText(event.target.text); getQuery(event.target.text) }} >C.S.</NavDropdown.Item>
+          <NavDropdown.Item onClick={(event) => {setText(event.target.text); getQuery(event.target.text) }}>IT</NavDropdown.Item>
           <NavDropdown.Item >EXTC</NavDropdown.Item>
           <NavDropdown.Item >Instrumentation</NavDropdown.Item>
           <NavDropdown.Item >AIDS</NavDropdown.Item>
@@ -40,4 +42,4 @@ const nav = () => {
 
 }
 
-export default nav;
+export default Customnav;
