@@ -18,10 +18,7 @@ function DisplayPage() {
     getPosts();
   });
   return (
-    <div>
-      <Container>
-        <Row>
-          <Col>
+    <section className="project">
             {projects.map((project) => {
               return (
                 <CustomCard
@@ -40,10 +37,7 @@ function DisplayPage() {
                 />
               );
             })}
-          </Col>
-        </Row>
-      </Container>
-    </div>
+    </section>
   );
 }
 
