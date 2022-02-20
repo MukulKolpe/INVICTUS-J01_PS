@@ -1,117 +1,192 @@
 import React, { useState } from "react";
 import "./AddProject.css";
-class ContactForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      projTitle: '',
-      projYear:'',
-      projSem:'',
-      projClass:'',
-      projDomain:'',
-      projTech:'',
-      projabt:'',
-      projGit:'',
-      projDrv:'',
-      projHos:'',
-    };
-    
-    this.handleChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    
-    this.setState({
-      [name]: value
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../Firebase/Firebase.utils";
+import { useNavigate } from "react-router-dom";
+function AddProject() {
+  const [title, setTitle] = useState("");
+  const [year, setYear] = useState("");
+  const [sem, setSem] = useState("");
+  const [cla, setCla] = useState("");
+  const [domain, setDomain] = useState("");
+  const [languages, setLanguages] = useState("");
+  const [desc, setDesc] = useState("");
+  const [github, setGithub] = useState("");
+  const [drive, setDrive] = useState("");
+  const [hosted, setHosted] = useState("");
+
+  const ProjectCollectionRef = collection(db, "projects");
+  let navigate = useNavigate();
+  const ProjectInfo = async () => {
+    await addDoc(ProjectCollectionRef, {
+      title,
+      year,
+      sem,
+      cla,
+      domain,
+      languages,
+      desc,
+      github,
+      drive,
+      hosted,
     });
-    console.log('Change detected. State updated' + name + ' = ' + value);
-  }
 
-  handleSubmit(event) {
-    alert('A form was submitted: ' + this.state.name + ' // ' + this.state.email);
-    event.preventDefault();
-  }
+    navigate("/");
+  };
 
-  render() {
-    return (
+  return (
+    <div className="full_projForm">
+      <h1 className="top_header">Add your Project:</h1>
       <div className="main_form">
-        <form onSubmit={this.handleSubmit} >
+        <form>
           <div className="form-group top_one">
-            <label for="nameImput">Project Title</label>
-            <input type="text" name="projTitle" value={this.state.projTitle} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Project Title" />
+            <label>Project Title</label>
+            <input
+              type="text"
+              name="projTitle"
+              className="form-control"
+              id="nameImput"
+              placeholder="Project Title..."
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
           </div>
-          <div class="big_one">
+          <div className="big_one">
             <div className="form-group three_liner">
-              <label for="emailImput">Year</label>
-              <input name="projYear" type="text" value={this.state.projYear} onChange={this.handleChange} className="form-control" id="emailImput" placeholder="Year" />
+              <label>Year</label>
+              <input
+                name="projYear"
+                type="text"
+                className="form-control"
+                id="emailImput"
+                placeholder="Year"
+                onChange={(e) => {
+                  setYear(e.target.value);
+                }}
+              />
             </div>
             <div className="form-group three_liner">
-              <label for="nameImput">Semester</label>
-              <input type="text" name="projSem" value={this.state.projSem} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Semester" />
+              <label>Semester</label>
+              <input
+                type="text"
+                name="projSem"
+                className="form-control"
+                id="nameImput"
+                placeholder="Semester"
+                onChange={(e) => {
+                  setSem(e.target.value);
+                }}
+              />
             </div>
             <div className="form-group three_liner">
-              <label for="nameImput">Class</label>
-              <input type="text" name="projClass" value={this.state.projClass} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Class" />
+              <label>Class</label>
+              <input
+                type="text"
+                name="projClass"
+                className="form-control"
+                id="nameImput"
+                placeholder="Class"
+                onChange={(e) => {
+                  setCla(e.target.value);
+                }}
+              />
             </div>
-          </div>
-          
-          <div className="form-group">
-            <label for="nameImput">Domain</label>
-            <input type="text" name="projDomain" value={this.state.projDomain} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Domain" />
           </div>
 
           <div className="form-group">
-            <label for="nameImput">TechStack</label>
-            <input type="text" name="projTech" value={this.state.projTech} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="TechStack" />
+            <label>Domain</label>
+            <input
+              type="text"
+              name="projDomain"
+              className="form-control"
+              id="nameImput"
+              placeholder="Domain"
+              onChange={(e) => {
+                setDomain(e.target.value);
+              }}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Tech-Stack</label>
+            <input
+              type="text"
+              name="projTech"
+              className="form-control"
+              id="nameImput"
+              placeholder="TechStack"
+              onChange={(e) => {
+                setLanguages(e.target.value);
+              }}
+            />
           </div>
 
           <div className="form-group project_info">
-            <label for="nameImput">About This Project</label>
-            <input type="text" name="projabt" value={this.state.projabt} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Write about Your Project" />
+            <label>About This Project</label>
+            <textarea
+              type="text"
+              name="projabt"
+              className="form-control"
+              id="nameImput"
+              placeholder="Write about Your Project"
+              onChange={(e) => {
+                setDesc(e.target.value);
+              }}
+            />
           </div>
 
           <div className="form-group">
-            <label for="nameImput">Github Link</label>
-            <input type="text" name="projGit" value={this.state.projGit} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Github Link" />
+            <label>Github Link</label>
+            <input
+              type="text"
+              name="projGit"
+              className="form-control"
+              id="nameImput"
+              placeholder="Github Link"
+              onChange={(e) => {
+                setGithub(e.target.value);
+              }}
+            />
           </div>
 
           <div className="form-group">
-            <label for="nameImput">Google Drive Link</label>
-            <input type="text" name="projDrv" value={this.state.projDrv} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Google Drive Link" />
+            <label>Google Drive Link</label>
+            <input
+              type="text"
+              name="projDrv"
+              className="form-control"
+              id="nameImput"
+              placeholder="Google Drive Link"
+              onChange={(e) => {
+                setDrive(e.target.value);
+              }}
+            />
           </div>
 
           <div className="form-group">
-            <label for="nameImput">Hosted Site Link</label>
-            <input type="text" name="projHos" value={this.state.projHos} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Hosted Site Link" />
+            <label>Hosted Site Link</label>
+            <input
+              type="text"
+              name="projHos"
+              className="form-control"
+              id="nameImput"
+              placeholder="Hosted Site Link"
+              onChange={(e) => {
+                setHosted(e.target.value);
+              }}
+            />
           </div>
-          <input type="submit" value="Submit" className="btn btn-primary" />
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={ProjectInfo}
+          >
+            Submit{" "}
+          </button>
         </form>
       </div>
-    )
-  }
+    </div>
+  );
 }
-
-class MainTitle extends React.Component {
-  render(){
-    return(
-      <h1 className="top_header">Add your Project:</h1>
-    )
-  }
-}
-
-class AddProject extends React.Component {
-  render(){
-    return(
-      <div className="full_projForm">
-        <MainTitle/>
-        <ContactForm/>
-      </div>
-    )
-  }
-}
-
 export default AddProject;
