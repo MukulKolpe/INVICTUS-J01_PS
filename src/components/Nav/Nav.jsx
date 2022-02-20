@@ -52,17 +52,6 @@ const NavigationBar = () => {
               <NavDropdown.Item>Sem 8</NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link
-              href="/addproject"
-              style={{
-                margin: "0 0 0 0.8rem ",
-                backgroundColor: "black",
-                color: "white",
-              }}
-            >
-              Add Project
-            </Nav.Link>
-
             {!isAuth ? (
               <Nav.Link
                 href="/login"
@@ -75,16 +64,29 @@ const NavigationBar = () => {
                 Log In
               </Nav.Link>
             ) : (
-              <button
-                onClick={signUserOut}
-                style={{
-                  margin: "0 0 0 0.8rem ",
-                  backgroundColor: "black",
-                  color: "white",
-                }}
-              >
-                Log Out
-              </button>
+              <>
+                <button
+                  onClick={signUserOut}
+                  style={{
+                    margin: "0 0 0 0.8rem ",
+                    backgroundColor: "black",
+                    color: "white",
+                  }}
+                >
+                  Log Out
+                </button>
+                )
+                <Nav.Link
+                  href="/addproject"
+                  style={{
+                    margin: "0 0 0 0.8rem ",
+                    backgroundColor: "black",
+                    color: "white",
+                  }}
+                >
+                  Add Project
+                </Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
