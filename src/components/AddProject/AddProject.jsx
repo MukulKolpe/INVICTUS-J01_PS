@@ -14,9 +14,41 @@ function AddProject() {
   const [github, setGithub] = useState("");
   const [drive, setDrive] = useState("");
   const [hosted, setHosted] = useState("");
+  const [formdata, setFormdata] = useState({
+    title: "",
+    year:"",
+    sem:"",
+    cla:"",
+    domain:"",
+    languages:"",
+    desc:"",
+    github:"",
+    drive:"",
+    hosted:"",
+
+  });
 
   const ProjectCollectionRef = collection(db, "projects");
   let navigate = useNavigate();
+ 
+  function addProject(newproject) {
+    addDoc(ProjectCollectionRef,{
+      title: title,
+      year: year,
+      sem: sem,
+      cla: cla,
+      domain: domain,
+      languages: languages,
+      desc: desc,
+      github: github,
+      drive: drive,
+      hosted: hosted,
+    })
+    navigate("/");
+  }
+
+
+  
   const ProjectInfo = async () => {
     await addDoc(ProjectCollectionRef, {
       title,
@@ -180,7 +212,7 @@ function AddProject() {
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={ProjectInfo}
+            onClick={addProject}
           >
             Submit{" "}
           </button>
